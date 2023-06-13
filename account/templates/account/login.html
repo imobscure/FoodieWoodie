@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<!-- Section: Design Block -->
+<section class="text-center">
+  <!-- Background image -->
+  {% load static %}
+  <div class="p-5 bg-image rounded" style="
+        background-image: url({%static 'mango.jpg'%}); height: 70vh;);
+        height: 500px;
+        "></div>
+  <!-- Background image -->
+
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        margin-top: -230px;
+        background: hsla(0, 0%, 90%, 0.4);
+        backdrop-filter: blur(15px);
+        ">
+    <div class="card-body py-5 px-md-5">
+      <div class="justify-content-center">
+          <h2 class="fw-bold mb-5">Login</h2>
+          <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="form-outline">
+                  <label class="form-label"><b>Username</b></label><br />
+                  <input type="text" name="username" />
+                </div>
+
+            <!-- Password input -->
+            <div class="form-outline">
+              <label class="form-label"><b>Password</b></label><br />
+              <input type="password" name="password" />
+            </div>
+            <br />
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              Login
+            </button>
+            {% if error %}
+            <div class="text-danger">
+              {{ error }}
+            </div> <br />
+            {% endif %}
+          </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Section: Design Block -->
+{% endblock %}
