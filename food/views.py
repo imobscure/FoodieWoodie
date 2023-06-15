@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Food
 from django.utils import timezone
 
 def home(request):
-    return render(request, 'food/home.html')
+    food = Food.objects
+    return render(request, 'food/home.html', {'food': food})
 
 @login_required
 def create(request):
@@ -22,10 +23,28 @@ def create(request):
             food.pub_date = timezone.datetime.now()
             food.contributor = request.user
             food.save()
-            return redirect('home')
+            return redirect('/food/'+str(food.id))
         else:
             return render(request, 'food/create.html', {'error': 'All the Fields are mandatory.'})
     else:
         return render(request, 'food/create.html')
 
-# Create your views here.
+def details(request, food_id):
+    food = get_object_or_404(Food, pk=food_id)
+    return render(request, 'food/details.html', {'food': food})
+
+@login_required
+def upvote(request, food_id):
+    if request.method == 'POST':
+        food = get_object_or_404(Food, pk=food_id)
+        food.upvotes += 1
+        food.save()
+        return redirect('/food/' + str(food.id))
+
+@login_required
+def downvote(request, food_id):
+    if request.method == 'POST':
+        food = get_object_or_404(Food, pk=food_id)
+        food.downvotes += 1
+        food.save()
+        return redirect('/food/' + str(food.id))

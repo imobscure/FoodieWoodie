@@ -8,7 +8,8 @@ class Food(models.Model):
     url = models.TextField()
     image = models.ImageField(upload_to='images/')
     icon = models.ImageField(upload_to='images/')
-    upvotes = models.IntegerField(default=1)
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
     contributor = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
@@ -18,4 +19,4 @@ class Food(models.Model):
         return self.body[:100]
 
     def pub_date_only(self):
-        return self.pub_date_only('%b %e %y')
+        return self.pub_date.strftime('%b %e %y')
