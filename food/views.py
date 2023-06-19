@@ -7,7 +7,7 @@ def home(request):
     food = Food.objects
     return render(request, 'food/home.html', {'food': food})
 
-@login_required
+@login_required(login_url="/account/login")
 def create(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['body'] and request.POST['url'] and request.FILES['image'] and request.FILES['icon']:
@@ -33,7 +33,7 @@ def details(request, food_id):
     food = get_object_or_404(Food, pk=food_id)
     return render(request, 'food/details.html', {'food': food})
 
-@login_required
+@login_required(login_url="/account/login")
 def upvote(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
@@ -41,7 +41,7 @@ def upvote(request, food_id):
         food.save()
         return redirect('/food/' + str(food.id))
 
-@login_required
+@login_required(login_url="/account/login")
 def downvote(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
