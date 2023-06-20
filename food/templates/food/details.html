@@ -45,10 +45,10 @@
 
 <div class="row pt-3">
   <div class="col-2">
-    <img src = "{{ food.icon.url }}" class = "img-fluid" />
+    <img src = "{{ food.icon.url }}" height=60 width=60 class = "img-fluid" />
     </div>
   <div class = "col-10">
-    <a href = "{{ food.url }}"><h2>{{ food.title }}</h2></a>
+    <h1>{{ food.title }}<a href = "{{ food.url }}"><img src = "{% static 'locate.png' %}" height=35 width=35 class = "img-fluid" /></a></h1>
     </div>
   </div>
   <div class="row pt-2">

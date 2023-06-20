@@ -13,13 +13,13 @@
 
   <div class="card mx-4 mx-md-5 shadow-5-strong" style="
         margin-top: -600px;
-        background: hsla(0, 0%, 80%, 0.5);
+        background: hsla(0, 0%, 80%, 0.2);
         backdrop-filter: blur(1px);
         ">
     <div class="card-body py-5 px-md-5">
       <div class="justify-content-center">
-        <h2 class="fw-bold mb-5">Feature a food hub!</h2>
-        <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+        <h2 class="fw-bold mb-5">Add your recipe!</h2>
+        <form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="form-outline">
             <label class="form-label"><b>Title</b></label><br />
@@ -27,23 +27,13 @@
           </div>
 
           <div class="form-outline">
-            <label class="form-label"><b>Body</b></label><br />
-            <input type="textbox" name="body" />
-          </div>
-
-          <div class="form-outline">
-            <label class="form-label"><b>Url</b></label><br />
-            <input type="text" name="url" />
+            <label class="form-label"><b>Steps</b></label><br />
+            <textarea id="body" name="body" rows="8" cols="50"></textarea>
           </div>
 
           <div class="form-outline">
             <label class="form-label"><b>Image</b></label><br />
             <input type="file" name="image" />
-          </div>
-
-          <div class="form-outline">
-            <label class="form-label"><b>Icon</b></label><br />
-            <input type="file" name="icon" />
           </div>
 
           <br />

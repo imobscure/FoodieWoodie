@@ -21,20 +21,16 @@
           <h2 class="fw-bold mb-5">Login</h2>
           <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="form-outline">
                   <label class="form-label"><b>Username</b></label><br />
                   <input type="text" name="username" />
                 </div>
-
-            <!-- Password input -->
             <div class="form-outline">
               <label class="form-label"><b>Password</b></label><br />
               <input type="password" name="password" />
             </div>
             <br />
 
-            <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">
               Login
             </button>
