@@ -65,7 +65,7 @@
           <p>{{ food.summary }}...</p>
             </div>
         </div>
-        <div class ="col-2 text-center" onclick="window.location='{{ food.url }}';" style="cursor: pointer;">
+        <div class ="col-2 text-center" onclick="window.open('{{ food.url }}', '_blank')" style="cursor: pointer;">
           <br />
           <img src="{% static 'locate.png' %}" height=50 width=50 class="img-fluid" />
           </div>
@@ -79,11 +79,11 @@
             </div>
 
     </div>
-    <form id="upvote{{food.id}}" method="POST" action="{% url 'upvote' food.id %}">
+    <form id="upvote{{food.id}}" method="POST" action="{% url 'upvotee' food.id %}">
           {% csrf_token %}
           <input type="hidden" />
         </form>
-    <form id="downvote{{food.id}}" method="POST" action="{% url 'downvote' food.id %}">
+    <form id="downvote{{food.id}}" method="POST" action="{% url 'downvotee' food.id %}">
             {% csrf_token %}
             <input type="hidden" />
       </form>

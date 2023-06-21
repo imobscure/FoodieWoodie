@@ -48,7 +48,7 @@
     <img src = "{{ food.icon.url }}" height=60 width=60 class = "img-fluid" />
     </div>
   <div class = "col-10">
-    <h1>{{ food.title }}<a href = "{{ food.url }}"><img src = "{% static 'locate.png' %}" height=35 width=35 class = "img-fluid" /></a></h1>
+    <h1>{{ food.title }}<a href = "{{ food.url }}" target="_blank"><img src = "{% static 'locate.png' %}" height=35 width=35 class = "img-fluid" /></a></h1>
     </div>
   </div>
   <div class="row pt-2">
@@ -84,11 +84,11 @@
         </p>
       </div>
 
-<form id="upvote{{food.id}}" method="POST" action="{% url 'upvote' food.id %}">
+<form id="upvote{{food.id}}" method="POST" action="{% url 'upvotee' food.id %}">
       {% csrf_token %}
       <input type="hidden" />
     </form>
-<form id="downvote{{food.id}}" method="POST" action="{% url 'downvote' food.id %}">
+<form id="downvote{{food.id}}" method="POST" action="{% url 'downvotee' food.id %}">
         {% csrf_token %}
         <input type="hidden" />
   </form>

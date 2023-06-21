@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Recipe
 from django.utils import timezone
+from django.db.models import F
 
 
 @login_required(login_url="/account/login")
@@ -43,5 +44,5 @@ def downvote(request, recipe_id):
 
 @login_required(login_url="/account/login")
 def all(request):
-    recipe = Recipe.objects
+    recipe = Recipe.objects.all().annotate(fieldsum=F('upvotes')-F('downvotes')).order_by('-fieldsum', '-upvotes')
     return render(request, 'recipe/allRecipies.html', {'recipe': recipe})

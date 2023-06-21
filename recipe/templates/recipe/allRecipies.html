@@ -3,8 +3,6 @@
 {% load static %}
 {% block content %}
 
-{% for recipe in recipe.all %}
-
 <div class="container-fluid">
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -47,10 +45,10 @@
 </div>
 
 <br />
-
 <h1>
   List of recipes!!
 </h1>
+{% for recipe in recipe.all %}
 
 <br />
 <div class="rounded mx-md-1 shadow-5-strong container-fluid" style="

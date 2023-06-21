@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Food
 from django.utils import timezone
+from django.db.models import F
 
 def home(request):
-    food = Food.objects
+    food = Food.objects.all().annotate(fieldsum=F('upvotes')-F('downvotes')).order_by('-fieldsum', '-upvotes')
     return render(request, 'food/home.html', {'food': food})
 
 @login_required(login_url="/account/login")
@@ -34,7 +35,7 @@ def details(request, food_id):
     return render(request, 'food/details.html', {'food': food})
 
 @login_required(login_url="/account/login")
-def upvote(request, food_id):
+def upvotee(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
         food.upvotes += 1
@@ -42,7 +43,7 @@ def upvote(request, food_id):
         return redirect('/food/' + str(food.id))
 
 @login_required(login_url="/account/login")
-def downvote(request, food_id):
+def downvotee(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
         food.downvotes += 1
