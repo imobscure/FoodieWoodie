@@ -20,3 +20,9 @@ class Food(models.Model):
 
     def pub_date_only(self):
         return self.pub_date.strftime('%b %e %y')
+
+
+class Location(models.Model):
+    food = models.ForeignKey(Food, on_delete = models.CASCADE)
+    lat = models.DecimalField(max_digits=9, decimal_places=6)
+    lng = models.DecimalField(max_digits=9, decimal_places=6)
