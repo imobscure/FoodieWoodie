@@ -1,0 +1,91 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{% load static %}
+
+<h1> {{ username }} </h1>
+<h3><b>credibility___{{ cred }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></h3>
+{% if food.all %}
+
+<h2>Featured places: </h2>
+
+{% for food in food.all %}
+<br />
+<div class="rounded mx-md-1 shadow-5-strong container-fluid" style="
+      background: hsla(0, 0%, 80%, 0);
+      backdrop-filter: blur(1px);
+      ">
+  <div class="row">
+    <div class ="col-2 text-center" onclick="window.location='{% url 'details' food.id%}';" style="cursor: pointer;">
+      <br />
+      <img src="{{ food.icon.url }}" height=60 width=60 class="img-fluid" />
+      </div>
+      <div class ="col-4" onclick="window.location='{% url 'details' food.id%}';" style="cursor: pointer;">
+        <div class ="row">
+          <h2>{{ food.title }}</h2>
+          </div>
+          <div class ="row">
+          <p>{{ food.summary }}...</p>
+            </div>
+        </div>
+        <div class ="col-2 text-center" onclick="window.open('{{ food.url }}', '_blank')" style="cursor: pointer;">
+          <br />
+          <img src="{% static 'locate.png' %}" height=50 width=50 class="img-fluid" />
+          </div>
+        <div class ="col-2 text-center">
+          <br />
+          <a href = "javascript: {document.getElementById('upvoteee{{food.id}}').submit()}"><button class="btn btn-fluid btn-primary btn-lg btn-block"><img src="{% static 'up.png' %}" height=20 width=20 class="img-fluid" /> {{ food.upvotes }}</button></a>
+          </div>
+          <div class ="col-2 text-center">
+            <br />
+            <a href = "javascript: {document.getElementById('downvoteee{{food.id}}').submit()}"><button class="btn btn-fluid btn-secondary btn-lg btn-block"><img src="{% static 'down.png' %}" height=20 width=20 class="img-fluid" /> {{ food.downvotes }}</button></a>
+            </div>
+
+    </div>
+    <form id="upvoteee{{food.id}}" method="POST" action="{% url 'upvotee' food.id %}">
+          {% csrf_token %}
+          <input type="hidden" />
+        </form>
+    <form id="downvoteee{{food.id}}" method="POST" action="{% url 'downvotee' food.id %}">
+            {% csrf_token %}
+            <input type="hidden" />
+      </form>
+  </div>
+{% endfor %}
+{% endif %}
+{% if recipe.all %}
+
+<h2>Recipies: </h2>
+{% for recipe in recipe.all %}
+
+<br />
+<div class="rounded mx-md-1 shadow-5-strong container-fluid" style="
+      background: hsla(0, 0%, 80%, 0);
+      backdrop-filter: blur(1px);
+      ">
+  <div class="row">
+      <div class ="col-6" onclick="window.location='{% url 'steps' recipe.id%}';" style="cursor: pointer;">
+          <h2>{{ recipe.title }}</h2>
+        </div>
+        <div class ="col-2 text-center">
+          <a href = "javascript: {document.getElementById('upvote{{recipe.id}}').submit()}"><button class="btn btn-fluid btn-primary btn-lg btn-block"><img src="{% static 'up.png' %}" height=20 width=20 class="img-fluid" /> {{ recipe.upvotes }}</button></a>
+          </div>
+          <div class ="col-2 text-center">
+            <a href = "javascript: {document.getElementById('downvote{{recipe.id}}').submit()}"><button class="btn btn-fluid btn-secondary btn-lg btn-block"><img src="{% static 'down.png' %}" height=20 width=20 class="img-fluid" /> {{ recipe.downvotes }}</button></a>
+            </div>
+
+    </div>
+    <form id="upvote{{recipe.id}}" method="POST" action="{% url 'upvote' recipe.id %}">
+          {% csrf_token %}
+          <input type="hidden" />
+        </form>
+    <form id="downvote{{recipe.id}}" method="POST" action="{% url 'downvote' recipe.id %}">
+            {% csrf_token %}
+            <input type="hidden" />
+      </form>
+  </div>
+
+{% endfor %}
+{% endif %}
+
+{% endblock %}

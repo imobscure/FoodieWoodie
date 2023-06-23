@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Food, Location, Profile
+from recipe.models import Recipe
 from django.utils import timezone
 from django.db.models import F
 import requests
@@ -77,3 +78,10 @@ def downvotee(request, food_id):
         profile.save()
         food.save()
         return redirect('/food/' + str(food.id))
+
+@login_required(login_url="/account/login")
+def personal(request):
+    profile = get_object_or_404(Profile, person=request.user)
+    food = Food.objects.filter(contributor=request.user)
+    recipe = Recipe.objects.filter(contributor=request.user)
+    return render(request, 'food/personal.html', {'food': food, 'recipe': recipe, 'credibility': profile.credibility, 'cred': profile.credibility, 'username': request.user})
