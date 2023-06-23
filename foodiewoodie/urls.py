@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import food.views
 import recipe.views
+import nearby.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +28,5 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('food/', include('food.urls')),
     path('recipe/', include('recipe.urls')),
+    path('nearby/', include('nearby.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

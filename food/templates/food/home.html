@@ -13,6 +13,19 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
+      <img src="{%static 'nearbybg.jpg'%}" class="d-block w-100 img-fluid rounded" style="height:400px" alt="...">
+      <div class="carousel-caption" style="width: 500px;
+top: 50% !important;
+transform: translateY(-50%);
+text-align: left;
+bottom: initial;
+color:black;">
+        <h1>Check out nearby places!!!</h1>
+        <a href="{% url 'proximity' %}">
+          <img src="{% static 'nearby.png' %}" height=60 width=60 /><h3>Try now!!</h3></a>
+      </div>
+    </div>
+    <div class="carousel-item">
       <img src="{%static 'mango.jpg'%}" class="d-block w-100 img-fluid rounded" style="height:400px" alt="...">
       <div class="carousel-caption" style="width: 500px;
 top: 50% !important;
@@ -23,19 +36,6 @@ color:black;">
         <h1>Show off your cooking skills!!</h1>
         <a href="{% url 'add' %}">
           <img src="{% static 'cooking.png' %}" height=80 width=80 /><h3>Add your recipe!!</h3></a>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="{%static 'nearbybg.jpg'%}" class="d-block w-100 img-fluid rounded" style="height:400px" alt="...">
-      <div class="carousel-caption" style="width: 500px;
-top: 50% !important;
-transform: translateY(-50%);
-text-align: left;
-bottom: initial;
-color:black;">
-        <h1>Check out nearby places!!!</h1>
-        <a href="{% url 'add' %}">
-          <img src="{% static 'nearby.png' %}" height=60 width=60 /><h3>Try now!!</h3></a>
       </div>
     </div>
     <div class="carousel-item">

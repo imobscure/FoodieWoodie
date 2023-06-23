@@ -57,7 +57,7 @@
                 <img src="{% static 'add.png' %}" height=25 width=25 /></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link navbar-brand" href="{% url 'personal' %}">{{ user.username }}<b>{{ credibility }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></a>
+              <a class="nav-link navbar-brand" href="{% url 'personal' %}">{{ user.username }}&nbsp;<b>{{ credibility }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="javascript:{document.getElementById('logout').submit()}"><img src="{% static 'logout.png' %}" height=25 width=25 /></a></a>

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'nearby.apps.NearbyConfig',
     'recipe.apps.RecipeConfig',
     'food.apps.FoodConfig',
     'account.apps.AccountConfig',
