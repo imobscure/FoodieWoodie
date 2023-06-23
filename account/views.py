@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import auth
 from django.contrib.auth.models import User
+from food.models import Profile
 
 
 def signup(request):
@@ -11,6 +12,9 @@ def signup(request):
                 return render(request, 'account/signup.html', {'error': 'Username is not available!'})
             except User.DoesNotExist:
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                profile = Profile()
+                profile.person = user
+                profile.save()
                 auth.login(request, user)
                 return redirect('home')
         else:

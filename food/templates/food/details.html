@@ -63,6 +63,9 @@
           <h5>Featured By: </h5>
           </div>
           <div class = "row pt-3">
+            <h5>User credibility: </h5>
+            </div>
+          <div class = "row pt-3">
             <h5>Posted on: </h5>
             </div>
             <div class = "row pt-3">
@@ -79,6 +82,9 @@
         <div class = "row pt-3">
             <h5>{{ food.contributor }}</h5>
             </div>
+            <div class = "row pt-3">
+                <h5><b>{{ cred }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></h5>
+                </div>
             <div class = "row pt-3">
                 <h5>{{ food.pub_date }}</h5>
                 </div>

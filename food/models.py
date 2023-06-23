@@ -26,3 +26,7 @@ class Location(models.Model):
     food = models.ForeignKey(Food, on_delete = models.CASCADE)
     lat = models.DecimalField(max_digits=9, decimal_places=6)
     lng = models.DecimalField(max_digits=9, decimal_places=6)
+
+class Profile(models.Model):
+    person = models.ForeignKey(User, on_delete = models.CASCADE)
+    credibility = models.IntegerField(default=0)

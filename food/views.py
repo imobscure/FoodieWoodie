@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Food, Location
+from .models import Food, Location, Profile
 from django.utils import timezone
 from django.db.models import F
 import requests
 
 def home(request):
     food = Food.objects.all().annotate(fieldsum=F('upvotes')-F('downvotes')).order_by('-fieldsum', '-upvotes')
-    return render(request, 'food/home.html', {'food': food})
+    try:
+        profile = get_object_or_404(Profile, person=request.user)
+        return render(request, 'food/home.html', {'food': food, 'credibility': profile.credibility})
+    except:
+        return render(request, 'food/home.html', {'food': food})
 
 @login_required(login_url="/account/login")
 def create(request):
@@ -23,6 +27,7 @@ def create(request):
             food.pub_date = timezone.datetime.now()
             food.contributor = request.user
             food.save()
+
             location = Location()
             location.food = food
             url = "https://trueway-geocoding.p.rapidapi.com/Geocode"
@@ -36,22 +41,29 @@ def create(request):
             location.lat = data['results'][0]['location']['lat']
             location.lng = data['results'][0]['location']['lng']
             location.save()
+
             return redirect('/food/'+str(food.id))
         else:
             return render(request, 'food/create.html', {'error': 'All the Fields are mandatory.'})
     else:
         return render(request, 'food/create.html')
 
+@login_required(login_url="/account/login")
 def details(request, food_id):
     foood = get_object_or_404(Food, pk=food_id)
     location = Location.objects.select_related('food').get(food_id = food_id)
-    return render(request, 'food/details.html', {'food': foood, 'latitude': location.lat, 'longitude': location.lng})
+    profile = get_object_or_404(Profile, person=foood.contributor)
+    profile2 = get_object_or_404(Profile, person=request.user)
+    return render(request, 'food/details.html', {'food': foood, 'latitude': location.lat, 'longitude': location.lng, 'cred': profile.credibility, 'credibility': profile2.credibility})
 
 @login_required(login_url="/account/login")
 def upvotee(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
+        profile = get_object_or_404(Profile, person=food.contributor)
+        profile.credibility += 1
         food.upvotes += 1
+        profile.save()
         food.save()
         return redirect('/food/' + str(food.id))
 
@@ -59,6 +71,9 @@ def upvotee(request, food_id):
 def downvotee(request, food_id):
     if request.method == 'POST':
         food = get_object_or_404(Food, pk=food_id)
+        profile = get_object_or_404(Profile, person=food.contributor)
+        profile.credibility -= 1
         food.downvotes += 1
+        profile.save()
         food.save()
         return redirect('/food/' + str(food.id))
