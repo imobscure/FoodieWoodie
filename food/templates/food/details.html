@@ -43,75 +43,74 @@
     </button>
   </div>
 
-  <div class="row pt-3">
-    <div class="col-2">
-      <img src="{{ food.icon.url }}" height=60 width=60 class="img-fluid" />
+<div class="row pt-3">
+  <div class="col-2">
+    <img src = "{{ food.icon.url }}" height=60 width=60 class = "img-fluid" />
     </div>
-    <div class="col-10">
-      <h1>{{ food.title }}<a href="{{ food.url }}" target="_blank"><img src="{% static 'locate.png' %}" height=35 width=35 class="img-fluid" /></a></h1>
-    </div>
-  </div>
-  <div class="row pt-2">
-    <div class="col-8">
-      <img src="{{ food.image.url }}" class="img-fluid rounded" style="height=auto; width=100%" />
-    </div>
-    <div class="col-4 pt-3">
-      <div id='map' style='width: 400px; height: 300px;'></div>
-      <script>
-        var map = new maplibregl.Map({
-          container: 'map',
-          style: 'https://static.maptoolkit.net/rapidapi/styles/terrain.json?rapidapi-key=1dc0964288msh31f40a1f1c5f2c3p1c0e6djsnab87c2f869f6', // stylesheet location
-          center: [{{ longitude }}, {{ latitude }}], // starting position [lng, lat]
-          zoom: 13 // starting zoom
-        });
-      </script>
+  <div class = "col-10">
+    <h1>{{ food.title }}<a href = "https://maps.google.com?q={{ latitude }},{{ longitude }}" target="_blank"><img src = "{% static 'locate.png' %}" height=35 width=35 class = "img-fluid" /></a></h1>
     </div>
   </div>
   <div class="row pt-2">
-    <div class="col-8 pt-3">
+      <div class="col-8">
+        <img src = "{{ food.image.url }}" class = "img-fluid rounded" style="height=auto; width=100%" />
+        </div>
+        <div class = "col-4 pt-3">
+          <div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+var map = new maplibregl.Map({
+container: 'map',
+style: 'https://static.maptoolkit.net/rapidapi/styles/terrain.json?rapidapi-key=1dc0964288msh31f40a1f1c5f2c3p1c0e6djsnab87c2f869f6', // stylesheet location
+center: [{{longitude}}, {{latitude}}], // starting position [lng, lat]
+zoom: 12 // starting zoom
+});
+</script>
+          </div>
+    </div>
+    <div class="row pt-2">
+      <div class = "col-8 pt-3">
       <p>
         {{ food.body }}
-      </p>
-    </div>
-    <div class="col-2">
-      <div class="row pt-3">
-        <a href="javascript: {document.getElementById('upvote{{food.id}}').submit()}"><button class="btn btn-fluid btn-primary btn-lg btn-block"><img src="{% static 'up.png' %}" height=20 width=20 class="img-fluid" /> {{ food.upvotes }}</button></a>
-      </div>
-      <div class="row pt-3">
-        <h5>Featured By: </h5>
-      </div>
-      <div class="row pt-3">
-        <h5>User credibility: </h5>
-      </div>
-      <div class="row pt-3">
-        <h5>Posted on: </h5>
+        </p>
+        </div>
+        <div class = "col-2">
+          <div class="row pt-3">
+            <a href = "javascript: {document.getElementById('upvote{{food.id}}').submit()}"><button class="btn btn-fluid btn-primary btn-lg btn-block"><img src="{% static 'up.png' %}" height=20 width=20 class="img-fluid" /> {{ food.upvotes }}</button></a>
+          </div>
+          <div class = "row pt-3">
+            <h5>Featured By: </h5>
+            </div>
+            <div class = "row pt-3">
+              <h5>User credibility: </h5>
+              </div>
+            <div class = "row pt-3">
+              <h5>Posted on: </h5>
+              </div>
+
+            </div>
+          <div class = "col-2">
+            <div class="row pt-3">
+              <a href = "javascript: {document.getElementById('downvote{{food.id}}').submit()}"><button class="btn btn-fluid btn-secondary btn-lg btn-block"><img src="{% static 'down.png' %}" height=20 width=20 class="img-fluid" /> {{ food.downvotes }}</button></a>
+            </div>
+          <div class = "row pt-3">
+              <h5>{{ food.contributor }}</h5>
+              </div>
+              <div class = "row pt-3">
+                  <h5><b>{{ cred }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></h5>
+                  </div>
+              <div class = "row pt-3">
+                  <h5>{{ food.pub_date }}</h5>
+                  </div>
+          </div>
       </div>
 
-    </div>
-    <div class="col-2">
-      <div class="row pt-3">
-        <a href="javascript: {document.getElementById('downvote{{food.id}}').submit()}"><button class="btn btn-fluid btn-secondary btn-lg btn-block"><img src="{% static 'down.png' %}" height=20 width=20 class="img-fluid" />
-            {{ food.downvotes }}</button></a>
-      </div>
-      <div class="row pt-3">
-        <h5>{{ food.contributor }}</h5>
-      </div>
-      <div class="row pt-3">
-        <h5><b>{{ cred }}<img src="{% static 'trust.png' %}" height=25 width=25 /></b></h5>
-      </div>
-      <div class="row pt-3">
-        <h5>{{ food.pub_date }}</h5>
-      </div>
-    </div>
-  </div>
-
-  <form id="upvote{{food.id}}" method="POST" action="{% url 'upvotee' food.id %}">
-    {% csrf_token %}
-    <input type="hidden" />
+<form id="upvote{{food.id}}" method="POST" action="{% url 'upvotee' food.id %}">
+      {% csrf_token %}
+      <input type="hidden" />
+    </form>
+<form id="downvote{{food.id}}" method="POST" action="{% url 'downvotee' food.id %}">
+        {% csrf_token %}
+        <input type="hidden" />
   </form>
-  <form id="downvote{{food.id}}" method="POST" action="{% url 'downvotee' food.id %}">
-    {% csrf_token %}
-    <input type="hidden" />
-  </form>
 
-  {% endblock %}
+{% endblock %}

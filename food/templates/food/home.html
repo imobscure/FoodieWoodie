@@ -57,7 +57,7 @@
       <br />
       <img src="{{ food.icon.url }}" height=60 width=60 class="img-fluid" />
       </div>
-      <div class ="col-4" onclick="window.location='{% url 'details' food.id%}';" style="cursor: pointer;">
+      <div class ="col-3" onclick="window.location='{% url 'details' food.id%}';" style="cursor: pointer;">
         <div class ="row">
           <h2>{{ food.title }}</h2>
           </div>
@@ -65,9 +65,9 @@
           <p>{{ food.summary }}...</p>
             </div>
         </div>
-        <div class ="col-2 text-center" onclick="window.open('{{ food.url }}', '_blank')" style="cursor: pointer;">
+        <div class ="col-3 text-center" onclick="window.location='{% url 'details' food.id%}';" style="cursor: pointer;">
           <br />
-          <img src="{% static 'locate.png' %}" height=50 width=50 class="img-fluid" />
+          {{ food.url }}
           </div>
         <div class ="col-2 text-center">
           <br />
