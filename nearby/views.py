@@ -18,6 +18,7 @@ def proximity(request):
     profile = get_object_or_404(Profile, person=request.user)
     if request.method == 'POST':
         addr = request.POST['address_']
+        rad = float(request.POST['rad'])
         url = "https://trueway-geocoding.p.rapidapi.com/Geocode"
         headers = {
             "X-RapidAPI-Key": "1dc0964288msh31f40a1f1c5f2c3p1c0e6djsnab87c2f869f6",
@@ -31,7 +32,7 @@ def proximity(request):
         food = {}
         for location in Location.objects.all():
             dis = distance(float(location.lat), float(location.lng), refLat, refLng)
-            if dis <= 25:
+            if dis <= rad:
                 food[dis] = location.food
         food1 = OrderedDict(sorted(food.items()))
         return render(request, 'nearby/proximity.html', {'food': food1, 'credibility': profile.credibility})
