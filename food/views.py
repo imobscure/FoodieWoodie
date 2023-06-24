@@ -10,6 +10,7 @@ def home(request):
     food = Food.objects.all().annotate(fieldsum=F('upvotes')-F('downvotes')).order_by('-fieldsum', '-upvotes')
     try:
         profile = get_object_or_404(Profile, person=request.user)
+        print(food)
         return render(request, 'food/home.html', {'food': food, 'credibility': profile.credibility})
     except:
         return render(request, 'food/home.html', {'food': food})
