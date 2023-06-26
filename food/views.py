@@ -5,6 +5,10 @@ from recipe.models import Recipe
 from django.utils import timezone
 from django.db.models import F
 import requests
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def home(request):
     food = Food.objects.all().annotate(fieldsum=F('upvotes')-F('downvotes')).order_by('-fieldsum', '-upvotes')
@@ -34,7 +38,7 @@ def create(request):
             location.food = food
             url = "https://trueway-geocoding.p.rapidapi.com/Geocode"
             headers = {
-                "X-RapidAPI-Key": "1dc0964288msh31f40a1f1c5f2c3p1c0e6djsnab87c2f869f6",
+                "X-RapidAPI-Key": os.environ.get('GEO_KEY'),
                 "X-RapidAPI-Host": "trueway-geocoding.p.rapidapi.com"
             }
             querystring = {"address":str(string),"language":"en"}
@@ -56,7 +60,7 @@ def details(request, food_id):
     location = Location.objects.select_related('food').get(food_id = food_id)
     profile = get_object_or_404(Profile, person=foood.contributor)
     profile2 = get_object_or_404(Profile, person=request.user)
-    return render(request, 'food/details.html', {'food': foood, 'latitude': location.lat, 'longitude': location.lng, 'cred': profile.credibility, 'credibility': profile2.credibility})
+    return render(request, 'food/details.html', {'mapKey':os.environ.get('GEO_KEY'), 'food': foood, 'latitude': location.lat, 'longitude': location.lng, 'cred': profile.credibility, 'credibility': profile2.credibility})
 
 @login_required(login_url="/account/login")
 def upvotee(request, food_id):

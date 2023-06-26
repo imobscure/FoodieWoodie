@@ -7,6 +7,10 @@ from django.db.models.functions import Cast
 import requests
 from math import cos, asin, sqrt, pi
 from collections import OrderedDict
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def distance(lat1, lon1, lat2, lon2):
     p = pi/180
@@ -21,7 +25,7 @@ def proximity(request):
         rad = float(request.POST['rad'])
         url = "https://trueway-geocoding.p.rapidapi.com/Geocode"
         headers = {
-            "X-RapidAPI-Key": "1dc0964288msh31f40a1f1c5f2c3p1c0e6djsnab87c2f869f6",
+            "X-RapidAPI-Key": os.environ.get('GEO_KEY'),
             "X-RapidAPI-Host": "trueway-geocoding.p.rapidapi.com"
         }
         querystring = {"address":str(addr),"language":"en"}
