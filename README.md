@@ -69,4 +69,4 @@ Special thanks to the developers and contributors of these APIs for enabling the
 
 ## Contact
 
-If you have any questions, suggestions, or feedback, please reach out to the FoodieWoodie development team at [foodiewoodie@example.com](mailto:imprakhar.ps@gmail.com).
+If you have any questions, suggestions, or feedback, please reach out to the FoodieWoodie development team at [imprakhar.ps@gmail.com](mailto:imprakhar.ps@gmail.com).
