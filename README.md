@@ -2,6 +2,8 @@
 
 FoodieWoodie is a web application that allows users to discover and share their favorite food hubs, explore new recipes, and connect with a community of food enthusiasts. It utilizes HTML, CSS, and Bootstrap for the frontend, while the backend is powered by Python, Django, and PostgreSQL. The project integrates two APIs, Trueway geocoding and Maptoolkit, to provide location-based services.
 
+![ezgif com-video-to-gif](https://github.com/imobscure/FoodieWoodie/assets/77916096/daa8b733-f8e0-43de-a135-1ef50251cc08)
+
 ## Key Features
 
 1. **User Signup/Login:** Users can create an account or log in to access personalized features and interact with the FoodieWoodie community.
