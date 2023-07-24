@@ -29,4 +29,6 @@ urlpatterns = [
     path('food/', include('food.urls')),
     path('recipe/', include('recipe.urls')),
     path('nearby/', include('nearby.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
