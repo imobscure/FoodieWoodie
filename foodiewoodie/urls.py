@@ -29,6 +29,8 @@ urlpatterns = [
     path('food/', include('food.urls')),
     path('recipe/', include('recipe.urls')),
     path('nearby/', include('nearby.urls')),
+    re_path(r'^static/(?P<path>.*)$', serve, {'document_root'=settings.STATIC_ROOT}),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root'=settings.MEDIA_ROOT}),
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
